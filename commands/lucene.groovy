@@ -36,7 +36,7 @@ class lucene extends CRaSHCommand {
     doc.add(new Field("path", file.absolutePath, Field.Store.YES, Field.Index.NOT_ANALYZED));
     doc.add(new Field("content", txt, Field.Store.NO, Field.Index.ANALYZED));
     def writer = new IndexWriter(dir, new WhitespaceAnalyzer(), IndexWriter.MaxFieldLength.UNLIMITED);
-    writer.addDocument(doc);
+    writer.updateDocument(new Term("path", file.absolutePath), doc);
     writer.close();
     return "indexed $file.absolutePath";
   }
