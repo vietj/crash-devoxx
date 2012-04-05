@@ -1,1 +1,1 @@
-java -jar crsh.shell.core-1.0.0-cr1-standalone.jar --jar lucene-core-3.5.0.jar --path .
+java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar crsh.shell.core-1.0.0-cr2-SNAPSHOT-standalone.jar --jar lucene-core-3.5.0.jar --cmd cmd --property crash.vfs.refresh_period=1
