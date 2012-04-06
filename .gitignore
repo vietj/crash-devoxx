@@ -7,3 +7,4 @@ release.properties
 .idea
 *.iml
 .DS_Store
+tmp

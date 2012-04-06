@@ -24,4 +24,7 @@ for JAR in $CRASH_HOME/lib/*.jar; do
   EXT_JARS="$EXT_JARS --jar $JAR"
 done
 
-java -jar $CRASH_HOME/bin/crsh.shell.core-1.0.0-cr2-SNAPSHOT-standalone.jar $EXT_JARS --cmd $CRASH_HOME/cmd --property crash.vfs.refresh_period=1 $@
+# Create tmp dir if it does not exist
+mkdir -p $CRASH_HOME/tmp
+
+java -Djava.io.tmpdir=$CRASH_HOME/tmp -Djava.util.logging.config.file=$CRASH_HOME/conf/logging.properties -jar $CRASH_HOME/bin/crsh.shell.core-1.0.0-cr2-SNAPSHOT-standalone.jar $EXT_JARS --cmd $CRASH_HOME/cmd --property crash.vfs.refresh_period=1 $@
