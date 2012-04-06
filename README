@@ -1,1 +1,6 @@
 interactive lucene based demo for devoxx
+
+Start crash with :
+
+./bin/crash.sh
+
