@@ -3,6 +3,7 @@ import org.crsh.cmdline.annotations.Usage
 import org.crsh.cmdline.annotations.Required
 import org.crsh.cmdline.annotations.Command
 import org.crsh.cmdline.annotations.Argument
+import org.crsh.command.ScriptException
 import org.crsh.cmdline.completers.*
 
 import org.apache.lucene.store.*;
