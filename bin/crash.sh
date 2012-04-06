@@ -24,4 +24,4 @@ for JAR in $CRASH_HOME/lib/*.jar; do
   EXT_JARS="$EXT_JARS --jar $JAR"
 done
 
-java -jar $CRASH_HOME/bin/crsh.shell.core-1.0.0-cr2-SNAPSHOT-standalone.jar $EXT_JARS --cmd cmd --property crash.vfs.refresh_period=1 $@
+java -jar $CRASH_HOME/bin/crsh.shell.core-1.0.0-cr2-SNAPSHOT-standalone.jar $EXT_JARS --cmd $CRASH_HOME/cmd --property crash.vfs.refresh_period=1 $@
