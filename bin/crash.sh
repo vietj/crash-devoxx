@@ -17,7 +17,7 @@ done
 # Get standard environment variables
 PRGDIR=`dirname "$PRG"`
 
-# Only set CATALINA_HOME if not already set
+# Only set CRASH_HOME if not already set
 [ -z "$CRASH_HOME" ] && CRASH_HOME=`cd "$PRGDIR/.." >/dev/null; pwd`
 
 for JAR in $CRASH_HOME/lib/*.jar; do
@@ -27,4 +27,13 @@ done
 # Create tmp dir if it does not exist
 mkdir -p $CRASH_HOME/tmp
 
-java -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -Djava.io.tmpdir=$CRASH_HOME/tmp -Djava.util.logging.config.file=$CRASH_HOME/conf/logging.properties -jar $CRASH_HOME/bin/crsh.shell.core-1.0.0-cr2-SNAPSHOT-standalone.jar $EXT_JARS --cmd $CRASH_HOME/cmd --property crash.vfs.refresh_period=1 $@
+# Hotspot and OpenJDK requires tools.jar in CLASSPATH for VirtualMachine
+if [ -n "$JAVA_HOME" ]; then
+	TOOLS_JAR=$JAVA_HOME/lib/tools.jar
+	CLASSPATH=$TOOLS_JAR
+	BOOTCP=-Xbootclasspath/a:$TOOLS_JAR
+fi
+
+export CLASSPATH=$CLASSPATH:$CRASH_HOME/bin/crsh.shell.core-1.0.0-cr3-SNAPSHOT-standalone.jar
+
+java $BOOTCP -Djava.util.logging.config.file=$CRASH_HOME/conf/logging.properties org.crsh.standalone.CRaSH $EXT_JARS --cmd $CRASH_HOME/cmd --property crash.vfs.refresh_period=1 "$@"
